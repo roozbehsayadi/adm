@@ -102,7 +102,10 @@ func askForDBConfig(info *dbInfo) config.DatabaseList {
 		}
 
 		if info.Schema == "" && info.DriverName == db.DriverPostgresql {
-			info.Schema = promptWithDefault("sql schema", "public")
+			info.Schema = promptWithDefault("sql schema (\"EMPTY\" for skipping schema)", "public")
+			if info.Schema == "EMPTY" {
+				info.Schema = ""
+			}
 		}
 
 		if info.Database == "" {
